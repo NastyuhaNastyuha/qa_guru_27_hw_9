@@ -11,7 +11,7 @@ public class LearningGroup {
     private Integer totalScore;
     private boolean haveGraduated;
     private String[] subjects;
-    private List<Students> students;
+    private List<Student> students;
 
     public UUID getId() {
         return id;
@@ -61,11 +61,11 @@ public class LearningGroup {
         this.subjects = subjects;
     }
 
-    public List<Students> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Students> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 }
