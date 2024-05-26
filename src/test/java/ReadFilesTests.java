@@ -3,6 +3,7 @@ import com.codeborne.xlstest.XLS;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReader;
 import model.LearningGroup;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ReadFilesTests {
     ClassLoader classLoader = ReadFilesTests.class.getClassLoader();
 
+    @DisplayName("Проверка pdf-файла из zip-архива")
     @Test
     void pdfFileFromZipTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("Архив.zip");
@@ -35,6 +37,7 @@ public class ReadFilesTests {
         }
     }
 
+    @DisplayName("Проверка xlsx-файла из zip-архива")
     @Test
     void xlsxFileFromZipTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("Архив.zip");
@@ -53,6 +56,7 @@ public class ReadFilesTests {
         }
     }
 
+    @DisplayName("Проверка csv-файла из zip-архива")
     @Test
     void csvFileFromZipTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("Архив.zip");
@@ -74,6 +78,7 @@ public class ReadFilesTests {
         }
     }
 
+    @DisplayName("Проверка json-файла")
     @Test
     void jsonParseTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("learningGroup.json"))
