@@ -17,55 +17,27 @@ public class LearningGroup {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getTotalStudents() {
         return totalStudents;
     }
 
-    public void setTotalStudents(Integer totalStudents) {
-        this.totalStudents = totalStudents;
-    }
-
     public Integer getTotalScore() {
         return totalScore;
-    }
-
-    public void setTotalScore(Integer totalScore) {
-        this.totalScore = totalScore;
     }
 
     public boolean isHaveGraduated() {
         return haveGraduated;
     }
 
-    public void setHaveGraduated(boolean haveGraduated) {
-        this.haveGraduated = haveGraduated;
-    }
-
     public String[] getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(String[] subjects) {
-        this.subjects = subjects;
-    }
-
     public List<Student> getStudents() {
         return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }

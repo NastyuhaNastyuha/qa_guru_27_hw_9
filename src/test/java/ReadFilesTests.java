@@ -6,12 +6,10 @@ import model.LearningGroup;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,16 +21,14 @@ public class ReadFilesTests {
     @Test
     void pdfFileFromZipTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("Архив.zip");
-             ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-             ZipFile zipFile = new ZipFile(new File("src/test/resources/Архив.zip"))) {
+             ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry entry;
             while ((entry = zipInputStream.getNextEntry()) != null) {
                 if (entry.getName().equals("Архив/file.pdf")) {
-                    try (InputStream pdfInputStream = zipFile.getInputStream(entry)) {
-                        PDF pdf = new PDF(pdfInputStream);
+                        PDF pdf = new PDF(zipInputStream);
                         assertThat(pdf.text).isEqualTo("Это pdf-файл!\n");
                     }
-                }
+
             }
         }
     }
@@ -41,16 +37,13 @@ public class ReadFilesTests {
     @Test
     void xlsxFileFromZipTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("Архив.zip");
-             ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-             ZipFile zipFile = new ZipFile(new File("src/test/resources/Архив.zip"))) {
+             ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry entry;
             while ((entry = zipInputStream.getNextEntry()) != null) {
                 if (entry.getName().equals("Архив/file.xlsx")) {
-                    try (InputStream fileInputStream = zipFile.getInputStream(entry)) {
-                        XLS xlsx = new XLS(fileInputStream);
+                        XLS xlsx = new XLS(zipInputStream);
                         String actual = xlsx.excel.getSheetAt(0).getRow(4).getCell(1).getStringCellValue();
                         assertThat(actual).isEqualTo("Это xlsx-файл!");
-                    }
                 }
             }
         }
@@ -61,21 +54,19 @@ public class ReadFilesTests {
     void csvFileFromZipTest() throws Exception {
         try (InputStream inputStream = classLoader.getResourceAsStream("Архив.zip");
              ZipInputStream zipInputStream = new ZipInputStream(inputStream);
-             ZipFile zipFile = new ZipFile(new File("src/test/resources/Архив.zip"))) {
+             CSVReader reader = new CSVReader(new InputStreamReader(zipInputStream))) {
             ZipEntry entry;
             while ((entry = zipInputStream.getNextEntry()) != null) {
                 if (entry.getName().equals("Архив/file.csv")) {
-                    try (InputStream fileInputStream = zipFile.getInputStream(entry);
-                         CSVReader reader = new CSVReader(new InputStreamReader(fileInputStream))) {
                         List<String[]> data = reader.readAll();
                         assertThat(data.size()).isEqualTo(4);
                         assertThat(data.get(1)).isEqualTo(new String[]{"Сидел", "Петух", "На лавочке"});
                         assertThat(data.get(2)).isEqualTo(new String[]{"Считал", "Свои", "Булавочки"});
                         assertThat(data.get(3)).isEqualTo(new String[]{"", "Это csv-файл!", ""});
-                    }
                 }
             }
         }
+
     }
 
     @DisplayName("Проверка json-файла")

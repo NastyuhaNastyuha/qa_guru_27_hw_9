@@ -17,23 +17,11 @@ public class Student {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public Integer getScore() {
         return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 }
